@@ -1,11 +1,11 @@
 Stack:
 
-*TypeScript
-*ReactJS (useState, useEffect)
-*Redux-Toolkit
-*React Router
-*Axios
-*Formik
+  *TypeScript
+  *ReactJS (useState, useEffect)
+  *Redux-Toolkit
+  *React Router
+  *Axios
+  *Formik
 
 
 
