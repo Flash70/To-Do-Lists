@@ -1,13 +1,13 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {AppDispatch} from "./store";
-import {getAuthMeServer} from "./auth-reducer";
+import {createSlice} from "@reduxjs/toolkit"
+import {AppDispatch} from "./store"
+import {getAuthMeServer} from "./auth-reducer"
 
 
-interface initialState {
+interface IInitialState {
     initialized: boolean
 }
 
-let initialState: initialState = {
+const initialState: IInitialState = {
     initialized: false
 };
 
@@ -25,19 +25,16 @@ export const {initializedSuccess} = initialSlice.actions
 
 export const initializeApp = () => async (dispatch: AppDispatch) => {
     try {
-        let promise = dispatch(getAuthMeServer());
+        let promise = dispatch(getAuthMeServer())
 
         Promise.all([promise])
             .then(() => {
-                dispatch(initializedSuccess());
+                dispatch(initializedSuccess())
             });
     } catch (error) {
-        alert("Шибка при иницилизации");
-        console.error(error);
+        alert("Шибка при иницилизации")
+        console.error(error)
     }
 }
 
-
-
-
-export default initialSlice.reducer;
+export default initialSlice.reducer

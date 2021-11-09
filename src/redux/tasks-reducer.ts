@@ -1,99 +1,79 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit"
-import {securityAPI, securityType } from "../api/auth-api"
-import { AppDispatch } from "./store"
-import {authAPI} from "../api/auth-api"
-import {IAuthMeAPI, ILogin, ResultCode} from "../api/api"
-import { ILoginMe } from "../interface"
+import {AppDispatch} from "./store"
+import {IItemsTask, ITask} from "../interface"
+import {tasksAPI} from "../api/tasks-api"
+import {IEditTask, ResultCode} from "../api/api"
 
 
-export interface initialStateInterface {
-    data: {
-        id: number | null
-        email: string | null
-        login: string | null
-    }
-    isAuth: boolean
-    messages: Array<string>
-    captcha?: string
-}
-
-const initialState: initialStateInterface = {
-    data: {
-        id: null,
-        email: null,
-        login: null,
-    },
-    isAuth: false,
-    messages: [],
-    captcha: "",
+const initialState: ITask = {
+    items: [],
+    error: "",
+    totalCount: 1,
 }
 
 
-const authMeSlice = createSlice({
+const tasksSlice = createSlice({
     name: "authMeReducer",
     initialState,
     reducers: {
-        getAuthMe(state, action: PayloadAction<ILogin<IAuthMeAPI>>) {
-            state.data = action.payload.data
-            state.isAuth = true
+        getTask(state, action: PayloadAction<ITask>) {
+            return action.payload
         },
-        getAuthMeError(state, action: PayloadAction<Array<string>>) {
-            state.isAuth = false
-            state.messages = action.payload
+        createTask (state, action: PayloadAction<IItemsTask>) {
+            state.items.unshift(action.payload)
         },
-        setSecurity(state, action: PayloadAction<securityType>) {
-            state.captcha = action.payload.url
-        },
-        getOutLogin(state) {
-            state.data = {id: null, email: null, login: null,}
-            state.isAuth = false
+        deleteTask(state, action: PayloadAction<string>) {
+            state.items = state.items.filter(item => item.id !== action.payload)
         },
     }
 })
 
-const {getAuthMe, setSecurity, getOutLogin, getAuthMeError} = authMeSlice.actions
+const {getTask, createTask, deleteTask} = tasksSlice.actions
 
 
-export const getAuthMeServer = () => async (dispatch: AppDispatch) => {
+export const getTaskServer = (id: string) => async (dispatch: AppDispatch) => {
     try {
-        const res = await authAPI.getMe()
-            if (res.resultCode === ResultCode.Success) {
-                dispatch(getAuthMe(res))
-            } else if (res.resultCode === ResultCode.Error) {
-                dispatch(getAuthMeError(res.messages))
-            }
+        const res = await tasksAPI.getTask(id)
+        dispatch(getTask(res))
     } catch (error) {
-        alert("Шибка при аутентификации");
-        console.error(error);
+        alert("Ошибка при запросе списка задач")
+        console.error(error)
     }
 }
 
-export const setAuthMeLogin = (obj: ILoginMe) => async (dispatch: AppDispatch) => {
+
+export const createTaskServer = (id: string, title: string) => async (dispatch: AppDispatch) => {
     try {
-        const res = await authAPI.loginMe(obj)
+        const {data} = await tasksAPI.setTask(id, title)
+        dispatch(createTask(data.item))
+    } catch (error) {
+        alert("Ошибка при добавлении списка задач")
+        console.error(error)
+    }
+}
+export const editTaskServer = (todolistId: string,taskId: string, obj: IEditTask) => async (dispatch: AppDispatch) => {
+    try {
+        const res = await tasksAPI.editTask(todolistId, taskId, obj)
         if (res.resultCode === ResultCode.Success) {
-            dispatch(getAuthMeServer())
-        } else if (res.resultCode === ResultCode.captcha) {
-            const res = await securityAPI.security()
-            dispatch(setSecurity(res))
-        } else if (res.resultCode === ResultCode.Error) {
-            dispatch(getAuthMeError([res.messages.length > 0 ? res.messages[0] : "Не правильный Email или пароль"]))
+            dispatch(getTaskServer(res.data.item.todoListId))
         }
     } catch (error) {
-        alert("Шибка при авторизации");
-        console.error(error);
+        alert("Ошибка при изменении списка задач")
+        console.error(error)
     }
 }
 
-export const setIsOutLogin = () => async (dispatch: AppDispatch) => {
+export const deleteTaskServer = (todolistId: string,taskId: string) => async (dispatch: AppDispatch) => {
     try {
-        await authAPI.logOut()
-        dispatch(getOutLogin())
+        const res = await tasksAPI.deleteTask(todolistId, taskId)
+        if (res.resultCode === ResultCode.Success) {
+            dispatch(deleteTask(taskId))
+        }
     } catch (error) {
-        alert("Шибка при выходе из приложения");
-        console.error(error);
+        alert("Ошибка при удалении списка задач")
+        console.error(error)
     }
 }
 
 
-export default authMeSlice.reducer
+export default tasksSlice.reducer

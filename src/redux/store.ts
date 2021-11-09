@@ -1,9 +1,15 @@
-import {combineReducers, configureStore} from "@reduxjs/toolkit";
+import {combineReducers, configureStore} from "@reduxjs/toolkit"
 import authMeSlice from "./auth-reducer"
+import initializeApp from "./app-reducer"
+import toDoListSlice from "./todo-lists-reducer"
+import tasksSlice from "./tasks-reducer"
 
 
 const rootReducer = combineReducers({
-    authMeSlice
+    authMeSlice,
+    initializeApp,
+    toDoListSlice,
+    tasksSlice
 })
 
 export const setupStore = () => {

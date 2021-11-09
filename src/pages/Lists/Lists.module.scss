@@ -1,0 +1,108 @@
+.title {
+  padding: 0 12px 20px;
+  display: flex;
+  align-items: center;
+
+  h2 {
+    font-size: 24px;
+  }
+}
+.sidebar__list {
+  overflow: auto;
+}
+.addNewList {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px 12px;
+  transition: background-color 0.15s ease-in-out;
+  svg {
+    width: 12px;
+    padding-right: 10px;
+  }
+  span {
+    font-size: 14px;
+  }
+}
+.blockNewList {
+  background-color: white;
+  padding: 10px 10px;
+  input {
+    background: #ffffff;
+    border: 1px solid #efefef;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 8px 12px;
+    width: 100%;
+    font-size: 14px;
+  }
+  button {
+    background: #34cf8b;
+    width: 100%;
+    margin-top: 12px;
+    border-radius: 4px;
+    color: #fff;
+    border: 0;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  svg {
+    width: 18px;
+    position: relative;
+    top: -110px;
+    left: 280px;
+    opacity: 0.4;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+.block__list {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 12px;
+  a{
+    text-decoration: none;
+    color: dimgray;
+  }
+  .list__edit {
+    input {
+      width: 70%;
+    }
+    img {
+      width: 15px;
+      margin: 0 0 0 8px;
+      cursor: pointer;
+    }
+  }
+
+  div {
+    padding-top: 5px;
+  }
+  span {
+    font-size: 18px;
+  }
+  .close__svg {
+    width: 15px;
+    cursor: pointer;
+    opacity: 0;
+  }
+  &:hover{
+    .close__svg {
+      opacity: 0.6;
+    }
+  }
+  .edit__svg {
+    width: 12px;
+    cursor: pointer;
+    opacity: 0;
+    margin-right: 8px;
+  }
+  &:hover {
+    .edit__svg {
+      opacity: 0.6;
+    }
+  }
+}
