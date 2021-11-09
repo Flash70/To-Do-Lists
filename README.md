@@ -1,3 +1,15 @@
+Stack:
+
+  *TypeScript
+  *ReactJS (useState, useEffect)
+  *Redux-Toolkit
+  *React Router
+  *Axios
+  *Formik
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
