@@ -67,7 +67,12 @@ export const List: React.FC<IProps> = ({addedDate, title, onDelete, id, toDoList
                 </>
                 : <div className={style.list__edit}>
                     <input onChange={listHandle}  type="text" value={listChange} autoFocus={true}/>
-                    <img onClick={editNewList} src="/img/send.svg" alt=""/>
+                    <svg onClick={editNewList} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         className="feather feather-send">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
                 </div>}
 
         </div>

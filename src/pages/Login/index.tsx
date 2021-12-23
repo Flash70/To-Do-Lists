@@ -44,7 +44,7 @@ export const Login: React.FC<ILoginProps> = ({captcha, messages}) => {
                 <input value={password} name={"password"} type="password" onChange={passwordHandle}/>
             </div>
             <div>
-                <input checked={rememberMe} name={"rememberMe"} type="checkbox" onChange={rememberMedHandle}/>
+                <input checked={rememberMe} name={"rememberMe"} type="checkbox" onChange={rememberMedHandle}/> Запомнить меня.
             </div>
             {messages && <div className={style.error}><span>{messages}</span></div>}
             {captcha && <>
