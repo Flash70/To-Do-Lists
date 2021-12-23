@@ -1,18 +1,18 @@
-Stack:
+# Stack:
 
-  *TypeScript
+  * TypeScript
   
-  *ReactJS (useState, useEffect)
+  * ReactJS (useState, useEffect)
   
-  *Redux-Toolkit
+  * Redux-Toolkit
   
-  *React Router
+  * React Router
   
-  *Axios
+  * Axios
   
-  *Formik
+  * Formik
 
-Логин и пароль для входа:
+### Логин и пароль для входа:
 
 t.serv3r@yandex.ru
 
